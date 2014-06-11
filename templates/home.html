@@ -1,0 +1,29 @@
+<div>
+    <div class="row">
+        <div class="small-12 large-12 columns">
+            <span class="login-btn" ng-click="loginRedirect()">&nbsp;</span>
+            <p class="titleBar">{{headerTitle}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="row">
+            <div class="small-12 large-12 columns">
+                <input type="text" placeholder="Search..." ng-model="search" class="search-ctg topcoat-text-input" 
+                       maxlength="15">
+            </div>
+        </div>
+        <div class="row">
+            <ul class="categories-list">
+                <li ng-repeat="category in readCategories| filter:search" ng-click="displayQuotes($index)">
+                    <div class="small-12 large-12 columns">
+                        <div class="ctg-parent">
+                            <span class="ctg-name">{{category.name}}</span>
+                            <span class="ctg-desc">{{category.description}}</span>
+                        </div>
+                        <span class="next-show"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

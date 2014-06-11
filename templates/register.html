@@ -1,0 +1,89 @@
+<div class="row register-control">
+    <div class="row">
+        <div class="large-12 columns">
+            <span class="login-btn" ng-click="loginRedirect()">&nbsp;</span>
+            <p class="titleBar">{{headerTitle}}</p>
+        </div>
+        <div class="small-12 columns">
+            <p ng-show="appMessageDisp" 
+               ng-class="{'app-message-error' : appMessageErr, 
+                          'app-message-success' : appMessageSuccess}">{{appMessage}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-7 columns">
+            <div class="bigQuote">{{singleQuote}}</div>
+            <div class="quoteAuthorBigQuote">{{singleQuoteAuthor}}</div>
+        </div>
+        <div class="large-5 columns reg-form-container">
+            <p class="txt-reg">Register<p>
+            <form ng-show="registerFormDisp" name="registerForm" ng-submit="register(user)" novalidate>
+                <div class="input-group">
+                    <input class="topcoat-text-input"
+                           ng-class="{
+                           'invalid-input' : registerForm.name.$invalid && !registerForm.name.$pristine,
+                           'valid-input' : registerForm.name.$valid && registerForm.name.$dirty
+                        }"
+                           type="text" placeholder="Name" ng-model="user.name" name="name"
+                           ng-minlength="4" ng-maxlength="20" required check-spl-chars/>
+                    <p class="err-msg" 
+                       ng-show="registerForm.name.$invalid && !registerForm.name.$pristine">
+                        {{REGISTER_VALIDATION_NAME}}
+                    </p>
+                </div>
+                <div class="input-group">
+                    <input class="topcoat-text-input"
+                           ng-class="{'invalid-input' : registerForm.email.$invalid && !registerForm.email.$pristine && !emailIdUnique, 'valid-input' : registerForm.email.$valid && registerForm.email.$dirty && emailIdUnique}"
+                           type="email" placeholder="Email Id" ng-model="user.emailId" 
+                           name="email" required unique-email />
+                    <p class="err-msg" 
+                       ng-show="registerForm.email.$invalid && !registerForm.email.$pristine">
+                        {{REGISTER_VALIDATION_EMAIL}}
+                    </p>
+                    <p class="success-msg" ng-show="emailIdUnique">
+                        {{emailIdStatusReceived}}
+                    </p>
+                    <p class="err-msg" ng-show="!emailIdUnique">
+                        {{emailIdStatusReceived}}
+                    </p>
+                </div>
+                <div class="input-group">
+                    <input class="topcoat-text-input"
+                           ng-class="{
+                           'invalid-input' : registerForm.password.$invalid && !registerForm.password.$pristine,
+                           'valid-input'
+                                : registerForm.password.$valid && registerForm.password.$dirty}"
+                           type="password" placeholder="Password"  ng-model="user.password" 
+                           name="password" ng-minlength="6" ng-maxlength="12" required check-strong-pswd/>
+                    <p class="err-msg" 
+                       ng-show="registerForm.password.$error.strongPswd">{{REGISTER_VALIDATION_PASSWORD}}
+                    </p>
+                </div>
+                <div class="input-group">
+                    <input class="topcoat-text-input"
+                           ng-class="{
+                           'invalid-input' : user.password != passwordCopy,
+                           'valid-input'
+                                : user.password == passwordCopy}"
+                           type="password" placeholder="Reenter password"  ng-model="passwordCopy" 
+                           name="passwordCopy" ng-minlength="6" ng-maxlength="12" required />
+                    <p class="err-msg" 
+                       ng-show="user.password != passwordCopy && registerForm.passwordCopy.$dirty">{{PASSWORD_NO_MATCH}}
+                    </p>
+                </div>
+                <div id="captcha-container"></div>
+                <p class="err-msg" 
+                   ng-show="captchaError">{{REGISTER_VALIDATION_CAPTCHA}}</p>
+                <button class="stdBtn" type="submit" 
+                        ng-disabled="registerForm.$invalid || !emailIdUnique || user.password != passwordCopy">
+                    Register
+                </button>                        
+            </form>
+            <p ng-show="register_success" class="loginBtnRegForm">
+                {{REGISTER_LOGIN}}
+                <a class="stdBtn" href="#">Login</a>
+            </p>
+        </div>
+    </div>
+
+</div>

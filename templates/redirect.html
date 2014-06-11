@@ -1,0 +1,54 @@
+<div class="row reset-control">
+    <div class="row">
+        <div class="large-12 columns">
+            <span class="login-btn" ng-click="loginRedirect()">&nbsp;</span>
+            <p class="titleBar">{{headerTitle}}</p>
+        </div>
+        <div class="small-12 columns">
+            <p ng-show="appMessageDisp" 
+               ng-class="{'app-message-error' : appMessageErr, 
+                          'app-message-success' : appMessageSuccess}">{{appMessage}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-8 columns">
+            <div class="bigQuote">{{singleQuote}}</div>
+            <div class="quoteAuthorBigQuote">{{singleQuoteAuthor}}</div>
+        </div>
+        <div class="large-4 columns">
+            <form ng-show="resetFormDisp" autocomplete="off" class="redirect-form" name="resetForm"
+                  ng-submit="resetPswd(resetPswdObj)" novalidate>
+                <p class="reset-email">{{resetPswdObj.email}}</p>
+                <div class="input-group">
+                    <input class="topcoat-text-input"
+                        ng-class="{
+                                    'invalid-input' : resetForm.password.$invalid && !resetForm.password.$pristine,
+                                            'valid-input'
+                                    : resetForm.password.$valid && resetForm.password.$dirty}"
+                           type="password" placeholder="Password"  ng-model="resetPswdObj.newPassword" 
+                           name="password" ng-minlength="6" ng-maxlength="12" required check-strong-pswd/>
+                    <p class="err-msg" ng-show="resetForm.password.$error.strongPswd">
+                        {{REGISTER_VALIDATION_PASSWORD}}</p>
+                </div>
+                <div class="input-group">
+                    <input class="topcoat-text-input"
+                        ng-class="{
+                                    'invalid-input' : resetPswdObj.newPassword != repeatPassword,
+                                            'valid-input'
+                                    : resetPswdObj.newPassword == repeatPassword}"
+                           type="password" placeholder="Repeat Password" ng-disabled="resetForm.password.$invalid"
+                           ng-model ="repeatPassword" name="repeatPassword"/>
+                    <p class="err-msg" ng-show="resetPswdObj.newPassword != repeatPassword && resetForm.repeatPassword.$dirty">
+                        {{PASSWORD_NO_MATCH}}</p>
+                </div>
+                <button class="stdBtn" type="submit" ng-disabled="resetForm.password.$pristine || resetForm.repeatPassword.$pristine || resetPswdObj.newPassword != repeatPassword">
+                    Reset Password
+                </button>
+            </form>
+            <p ng-show="reset_success" class="loginBtnRegForm">
+                {{password_changed}}
+                <a class="stdBtn" href="#login">Login</a>
+            </p>
+        </div>
+    </div>
+</div>

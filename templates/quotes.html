@@ -1,0 +1,108 @@
+<div>
+    <div class="delete-dialog" ng-show="deleteDialogDisp" >
+        <div class="small-6 columns delete-confirm" ng-click="deleteQuote()"><p>Delete</p>
+        </div>
+        <div class="small-6 columns delete-cancel" ng-click="cancelDeleteQuote()"><p>Cancel</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 large-12 columns">
+            <span class="logout-btn" ng-click="logout()">&nbsp;</span>
+            <span class="back-btn" ng-click="backToCtg()">&nbsp;</span>
+            <p class="titleBar">{{headerTitle}}</p>
+        </div>
+        <div class="small-12 columns">
+            <p ng-show="appMessageDisp" 
+               ng-class="{'app-message-error' : appMessageErr, 
+                          'app-message-success' : appMessageSuccess}">{{appMessage}}</p>
+        </div>
+    </div>
+    <div class="row" ng-show="quotesDisp">
+        <div class="row">
+            <div class="small-3 columns">
+            </div>
+            <div class="small-9 columns add-cateogry">
+                <button ng-disabled="actionAddDisabled" ng-click="addQuoteDialog()">Add a new Quote</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 large-12 columns">
+                <input type="text" placeholder="Search..." ng-model="search" class="search-ctg topcoat-text-input" 
+                       maxlength="15">
+            </div>
+        </div>
+        <div class="row">
+            <ul class="categories-list">
+                <li ng-repeat="quote in quotes| filter:search"
+                    ng-class="{'delete-row-highlight': deleteIndex === $index}">
+                    <div class="small-12 large-12 columns">
+                        <div class="ctg-name quote-text"><pre>{{quote.text}}</pre></div>
+                    </div>
+                    <div class="small-12 columns edits">
+                        <span ng-click="likeQuote($index)" 
+                              ng-disabled="actionAddDisabled"
+                              ng-class="{'like' : quote.liked, 'liked' : !quote.liked}">
+                            {{quote.liked ? 'Unlike' : 'Like'}}
+                        </span>
+                        <span class="likes-count">{{quote.likes}}</span>
+                        <span ng-show="quote.editable">
+                            <span ng-disabled="actions[$index].disabled" class="edit-option" 
+                                  ng-click="editQuote($index)">Edit</span>
+                            <span ng-disabled="actions[$index].disabled" class="delete-option" 
+                                  ng-click="deleteQuoteDialog($index)">Delete</span>
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row form-edit" ng-show="editQuotesDisp">
+        <form name="editForm" autocomplete="off" class="edit-form small-12 columns"
+              novalidate>
+            <textarea 
+                ng-class="{'invalid-input' : editForm.quote.$invalid && !editForm.quote.$pristine,
+                        'valid-input' : editForm.quote.$valid && editForm.quote.$dirty}"
+                name="quote" ng-model="editModel.quote" placeholder="Enter quote" 
+                class="topcoat-textarea edit-desc" rows="4" maxlength="500" min-chars></textarea>
+            <p ng-show="editForm.quote.$invalid && !editForm.quote.$pristine" 
+               class="err-msg">
+                {{QUOTE_LENGTH_ERR}}
+            </p>
+            <div class="row edits editCtgBtns">
+                <div class="small-6 columns">
+                    <button ng-disabled="!editForm.$valid || editForm.$pristine" class="stdBtn save-option" 
+                            ng-click="updateQuote(editModel)">Update</button>
+                </div>
+                <div class="small-6 columns">
+                    <button ng-disabled="actions[$index].disabled" class="stdBtn cancel-option" 
+                            ng-click="cancelQuoteEdit()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row form-edit" ng-show="createQuotesDisp">
+        <form name="createForm" autocomplete="off" class="create-form small-12 columns"
+              novalidate>
+            <textarea 
+                ng-class="{'invalid-input' : createForm.quote.$invalid && !createForm.quote.$pristine,
+                        'valid-input' : createForm.quote.$valid && createForm.quote.$dirty}"
+                name="quote" ng-model="createModel.quote" placeholder="Enter quote"
+                class="topcoat-textarea edit-desc" rows="4" maxlength="500" min-chars></textarea>
+            <p ng-show="createForm.quote.$invalid && !createForm.quote.$pristine" 
+               class="err-msg">
+                {{QUOTE_LENGTH_ERR}}
+            </p>
+            <div class="row edits editCtgBtns">
+                <div class="small-6 columns">
+                    <button ng-disabled="!createForm.$valid || createForm.$pristine" class="stdBtn save-option" 
+                            ng-click="createQuote(createModel)">Create</button>
+                </div>
+                <div class="small-6 columns">
+                    <button class="stdBtn cancel-option" 
+                            ng-click="cancelQuoteCreate()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

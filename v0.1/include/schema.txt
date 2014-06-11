@@ -1,0 +1,36 @@
+create tables users, quotes, writersnctgs.
+
+All references should be nullable.
+
+define index on user_ref for writersnctgs.
+define index on user_ref, wrNctg_ref for quotes.
+
+** Indexes should not be unique
+
+set foreign key on all indexes.
+user_ref to user(id).
+wrNctg_ref to writersnctgs(id).
+
+Set likes to default 0
+
+On user or category delete set to NULL.
+
+ALTER TABLE quotes
+ADD CONSTRAINT fk_user_ref
+FOREIGN KEY (user_ref)
+REFERENCES users(id)
+ON DELETE SET NULL ON UPDATE SET NULL
+
+ALTER TABLE quotes
+ADD CONSTRAINT fk_ctg_ref
+FOREIGN KEY(wrNctg_ref)
+REFERENCES writersNCtgs(id)
+ON DELETE SET NULL ON UPDATE SET NULL
+
+ALTER TABLE writersNCtgs
+ADD CONSTRAINT fk_user_ref
+FOREIGN KEY(user_ref)
+REFERENCES users(id)
+ON DELETE SET NULL ON UPDATE SET NULL
+
+ALTER TABLE `quotes` CHANGE `wrNctg_ref` `wrNctg_ref` INT(11) NULL DEFAULT NULL;

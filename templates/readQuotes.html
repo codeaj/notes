@@ -1,0 +1,26 @@
+<div>
+    <div class="row">
+        <div class="small-12 large-12 columns">
+            <span class="login-btn" ng-click="loginRedirect()">&nbsp;</span>
+            <span class="back-btn" ng-click="backToReadCtgs()">&nbsp;</span>
+            <p class="titleBar">{{headerTitle}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="row">
+            <div class="small-12 large-12 columns">
+                <input type="text" placeholder="Search..." ng-model="search" class="search-ctg topcoat-text-input" 
+                   maxlength="15">
+            </div>
+        </div>
+        <div class="row">
+            <ul class="categories-list read-list">
+                <li ng-repeat="quote in readQuotes| filter:search">
+                    <div class="small-12 large-12 columns">
+                        <div class="ctg-name quote-text"><pre>{{quote.text}}</pre></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
