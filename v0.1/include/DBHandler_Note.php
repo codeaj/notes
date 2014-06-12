@@ -93,4 +93,80 @@ class DbHandlerNote {
         }
     }
 
+    private function storeImage($user_id, $image_id) {
+        $allowedExts = array('gif', 'jpeg', 'jpg', 'png', 'GIF', 'JPEG', 'JPG', "PNG");
+        $temp = explode('.', $_FILES['myFile']['name']);
+        $extension = end($temp);
+        $fileType = $_FILES['myFile']['type'];
+        $correctImgType = ($fileType == 'image/gif') || ($fileType == 'image/jpeg') ||
+                ($fileType == 'image/jpg') || ($fileType == 'image/png');
+        $correctImgSize = ($_FILES['myFile']['size'] / 1024 < 1024);
+        $correctExtension = in_array($extension, $allowedExts);
+        if ($correctImgType && $correctImgSize && $correctExtension) {
+            if (!$image_id) {
+                return $this->storeImageLinkDB($user_id);
+            } else {
+                return $this->updateImageLinkDB($user_id, $image_id);
+            }
+        } else {
+            return FALSE;
+        }
+    }
+
+    private function storeImageLinkDB($user_id) {
+        $lastIndex = $this->db->image_refs->max('id');
+        $lastIndex++;
+        $fileName = $lastIndex . '_' . $_FILES['myFile']['name'];
+        $image_entry = array('url' => $fileName);
+        $result = $this->db->image_refs->insert($image_entry);
+        $uploaddir = 'data/' . $user_id . '/images/' . $fileName;
+        if (file_exists($uploaddir)) {
+            unlink($uploaddir);
+            move_uploaded_file($_FILES['myFile']['tmp_name'], $uploaddir);
+        } else {
+            move_uploaded_file($_FILES['myFile']['tmp_name'], $uploaddir);
+        }
+        return $result ? array('id' => $result['id'], 'url' => $fileName) : FALSE;
+    }
+
+    private function updateImageLinkDB($user_id, $image_id) {
+        $imageRow = $this->db->image_refs->where('id', $image_id)->fetch();
+        if ($imageRow) {
+            $fileName = $image_id . '_' . $_FILES['myFile']['name'];
+            $image = array('url' => $fileName);
+            $imageRow->update($image);
+            $uploaddir = $user_id . '/images/' . $fileName;
+            if (file_exists($uploaddir)) {
+                unlink($uploaddir);
+                move_uploaded_file($_FILES['myFile']['tmp_name'], $uploaddir);
+            } else {
+                move_uploaded_file($_FILES['myFile']['tmp_name'], $uploaddir);
+            }
+            $updatedRow = $this->db->image_refs->where('id', $image_id)->fetch();
+            return $updatedRow['url'];
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function updateImage($subject_id, $user_id, $image_id) {
+        
+    }
+
+    public function addImage($user_id) {
+        if (!file_exists('data/' . $user_id . '/images')) {
+            mkdir('data/' . $user_id . '/images', 0777, true);
+        }
+        if (isset($_FILES['myFile']) && !($_FILES['myFile']['error'] > 0)) {
+            $imageInfo = $this->storeImage($user_id, FALSE);
+            if ($imageInfo) {
+                return array('status' => 200, 'message' => $imageInfo);
+            } else {
+                return array('status' => 400, 'message' => 'Error in upload');
+            }
+        } else {
+            return array('status' => 400, 'message' => 'Error in upload');
+        }
+    }
+
 }
