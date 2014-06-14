@@ -22,14 +22,14 @@ $progressColor: #3498db;
 }
 .drop-box {
     background: #F8F8F8;
-    display: inline-block;
+    display: block;
     border: 5px dashed #DDD;
     text-align: center;
     padding: 15px; 
     width: 250px;
     height: 80px;
     position: relative;
-    float: right;
+    margin: 0 auto;
 }
 .drop-box.dragover {
     border: 5px dashed blue;

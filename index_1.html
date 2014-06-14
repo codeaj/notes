@@ -1,37 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <link type="text/css" rel="stylesheet" href="css/style.css">
-        <title>Angular file upload sample</title>
-        <script src="lib/jquery-1.11.0.min.js"></script>
-        <script src="lib/angular/angular-file-upload-shim.js"></script>
-        <script src="lib/angular/angular.min.js"></script>
-        <script src="lib/angular/angular-file-upload.js"></script>
-        <script src="js/upload.js"></script>
-    </head>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-    <body ng-app="fileUpload" ng-controller="MyCtrl">
-        <div class="upload-div">
-            <div ng-show="dropSupported" class="drop-box" 
-                 ng-file-drop="onFileSelect($files);" 
-                 ng-file-drop-available="dropSupported=true">Drop images here
-                </br>or</br>
-                <div class="file-input-wrapper">
-                    <button class="btn-file-input">Select Image</button>
-                    <input id="upfile" type="file" ng-file-select="onFileSelect($files)" 
-                           onclick="this.value = null" class="upload-btn" name="file">
-                </div>
-                <div ng-show="selectedFiles != null" class="sel-file" ng-repeat="f in selectedFiles">
-                    <div class="progress" ng-show="progress[$index] >= 0">						
-                        <div style="width:{{progress[$index]}}%">&nbsp;</div>
-                    </div>				
-                </div>
-            </div>
-            <img ng-show="dataUrl" ng-src="{{dataUrl}}" class="uploaded-img">
-            <div ng-show="!dropSupported">
-                HTML5 Drop File is not supported on this browser
-            </div>
-        </div>
+    </head>
+    <body>
+
+        Enter your name: <input id="testId" type="text">
+        <br><br>
+
+        <button id="btn1">Trigger focus event</button>
+        <button id="btn2">Trigger blur event</button>
+        <p style="color:red"></p>
+        <script>
+            $("#testId").focus();
+            $("#btn1").click(function() {
+                $("#testId").focus();
+                $("p").html("focus event triggered");
+            });
+            $("#testId").click(function() {
+                $("#testId").blur();
+                $("p").html("blur event triggered");
+            });
+        </script>
     </body>
 </html>

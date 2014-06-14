@@ -19,9 +19,13 @@ $app->response()->header('Content-Type', 'application/json');
 $app->response()->header('Access-Control-Allow-Origin', '*');
 
 //Routes
-$app->get('/subject', 'authenticate', function() use ($app) {
+$app->get('/subject', 'authenticate', function() use ($db_subject) {
     global $user_id;
-    echoRespnse('200', array('user_id' => $user_id));
+    getSubjects($db_subject, $user_id);
+});
+$app->get('/notes/:subjectId', 'authenticate', function($subjectId) use ($db_subject) {
+    global $user_id;
+    getNotes($db_subject, $subjectId, $user_id);
 });
 $app->post('/subject', 'authenticate', function() use ($app, $db_subject, $util) {
     global $user_id;
@@ -79,7 +83,24 @@ $app->put('/uploadFile/:subject_id/:image_id', 'authenticate', function($subject
     global $user_id;
     updateImage($db_note, $subject_id, $user_id, $image_id);
 });
+$app->get('/testcall', function() use ($db_note) {
+
+    /* code to create json file.
+      $fp = fopen('data/1/results.json', 'w');
+      fwrite($fp, json_encode($result));
+      fclose($fp); */
+});
 $app->run();
+
+function getSubjects($db_subject, $user_id) {
+    $res = $db_subject->getSubjects($user_id);
+    echoRespnse($res['status'], $res);
+}
+
+function getNotes($db_subject, $subjectId, $user_id) {
+    $res = $db_subject->getNotes($subjectId, $user_id);
+    echoRespnse($res['status'], $res);
+}
 
 function createSubject($app, $db_subject, $user_id, $util) {
     $subject = json_decode($app->request()->getBody(), TRUE);

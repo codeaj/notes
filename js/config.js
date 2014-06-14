@@ -1,6 +1,6 @@
 //var APP_ROOT = 'http://localhost/quotes/';
 var APP_ROOT = 'http://jaagar.org/quotes/';
-var SERVICE_ROOT = 'v1.2/';
+var SERVICE_ROOT = 'v0.1/';
 
 var configs = {};
 configs['REGISTER_VALIDATION_NAME'] = 'Name should be atleast 5 characters long.';
