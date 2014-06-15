@@ -1,0 +1,82 @@
+<div class="delete-form" ng-show="deleteForm">
+    <div class="deleteArea">
+        <p>Are you sure you want to delete?</p>
+        <button ng-click="deleteForm = !deleteForm">Cancel</button>
+        <button ng-click="delete()">Delete</button>
+    </div>
+</div>
+<div class="container row">
+    <div class="bread-crumb-container small-12 large-8 columns">
+        <span ng-click="" class="activeLink">{{"Home"}} 
+            <i class="fa fa-chevron-right" ng-show="selectedSubject"></i></span>
+        <span ng-click="" class="" ng-show="selectedSubject">
+            {{selectedSubject.length > 20 ? selectedSubject.substring(0, 20) + " ..."
+                                : selectedSubject}}
+            <i class="fa fa-chevron-right" ng-show="selectedTopic"></i>
+        </span>
+        <span ng-click="" class="" ng-show="selectedTopic">
+            {{selectedTopic.length > 20 ? selectedTopic.substring(0, 20) + " ..." : selectedTopic}}
+            <i class="fa fa-chevron-right" ng-show="selectedSubtopic"></i>
+        </span>
+        <span ng-click="" class="">
+            {{selectedSubtopic.length > 20 ? selectedSubtopic.substring(0, 20) + " ..."
+                                : selectedSubtopic}}
+        </span>
+    </div>
+    <div class="small-12 large-4 columns bar-actions">
+        <span ng-click="deleteForm = !deleteForm"><i class="fa fa-trash-o"></i></span>
+        <span ng-click="updateCurrent()"><i class="fa fa-pencil-square-o"></i></span>
+        <span class="plus-icon">
+            <i class="fa fa-plus" ng-click="createClicked()"></i>
+            <span class="add-area" ng-show="createClick">
+                <span ng-click="addSubject()" ng-show="atHome">Subject</span>
+                <span ng-click="addNote()" ng-show="selectedSubject">Note</span>
+                <span ng-click="addTopic()" ng-show="selectedSubject">Topic</span>
+                <span ng-click="addSubtopic()" ng-show="selectedTopic">Subtopic</span>
+            </span>
+        </span>
+    </div>
+    <div class="small-12 large-12 columns create-edit-form" ng-show="showCreateEdit">
+        <form>
+            <div class="small-12 large-8 columns editArea">
+                <textarea placeholder="{{editPlaceholder}}" ng-model="editText"></textarea>
+            </div>
+            <div class="upload-div small-12 large-4 columns" ng-show="!subjectCreate">
+                <div ng-show="dropSupported" class="drop-box" 
+                     ng-file-drop="onFileSelect($files);" 
+                     ng-file-drop-available="dropSupported=true">Drop images here
+                    </br>or</br>
+                    <div class="file-input-wrapper">
+                        <button class="btn-file-input">Select Image</button>
+                        <input id="upfile" type="file" ng-file-select="onFileSelect($files)" 
+                               onclick="this.value = null" class="upload-btn" name="file">
+                    </div>
+                    <div ng-show="selectedFiles != null" class="sel-file" 
+                         ng-repeat="f in selectedFiles">
+                        <div class="progress" ng-show="progress[$index] >= 0">						
+                            <div style="width:{{progress[$index]}}%">&nbsp;</div>
+                        </div>				
+                    </div>
+                </div>
+                <img ng-show="dataUrl" ng-src="{{dataUrl}}" class="uploaded-img">
+                <div ng-show="!dropSupported">
+                    HTML5 Drop File is not supported on this browser
+                </div>
+            </div>
+            <div class="small-12 columns form-save-area">
+                <button ng-click="showCreateEdit = !showCreateEdit">Cancel</button>
+                <button ng-click="create()" ng-show="createInProgress">Create</button>
+                <button ng-click="update()" ng-show="!createInProgress">Update</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="subjects-container small-12 columns">
+        <div class="subject-list">
+            <p ng-repeat="subject in subjects">
+                <span ng-click="makeSelection(['subject', $index])" on-select>{{subject.name}}</span>
+                <span ng-click="alert('hello')" class="show-more">Show topics</span>
+            </p>
+        </div>
+    </div>
+</div>

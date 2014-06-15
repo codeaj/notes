@@ -2,21 +2,21 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngAnimate', 'angularFileUpload'
 // configure our routes
 myApp.config(function($routeProvider) {
     $routeProvider
-            .when('/subject', {
-                templateUrl: 'templates/subject.html',
-                controller: 'SubjectController'
-            })
-            .when('/list', {
-                templateUrl: 'templates/list.html',
+            .when('/', {
+                templateUrl: 'templates/notes.html',
                 controller: 'NoteController'
             });
 });
-myApp.directive('focus', function() {
-    return function(scope, element, attrs) {
-        attrs.$observe('focus', function(newValue) {
-            newValue === 'true' && element[0].click();
-        });
-    }
+myApp.directive('onSelect', function($http) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs, ctrl) {
+            element.on('click', function() {
+                $('.selected').removeClass('selected');
+                element.addClass('selected');
+            });
+        }
+    };
 });
 function showButtons($scope, showArr) {
     var buttons = ['showAddNote', 'showForm', 'showAddTopic', 'showAddSubTopic',
