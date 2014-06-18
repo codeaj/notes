@@ -73,3 +73,8 @@ ALTER TABLE  `topic` ADD FOREIGN KEY (  `subject_ref` ) REFERENCES  `notes`.`sub
 ON DELETE CASCADE ON UPDATE CASCADE ;
 ALTER TABLE  `subtopic` ADD FOREIGN KEY (  `topic_ref` ) REFERENCES  `notes`.`topic` (`id`) 
 ON DELETE CASCADE ON UPDATE CASCADE ;
+
+delete from notes;
+delete from subtopics;
+delete from topics;
+delete from image_refs;

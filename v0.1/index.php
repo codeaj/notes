@@ -213,7 +213,7 @@ function authenticate() {
 //            $app->stop();
 //        } else {
         global $user_id;
-        $user_id = 1;
+        $user_id = 2;
 //        }
     } else {
         echoRespnse(404, array('message' => 'Api key is missing'));
