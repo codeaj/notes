@@ -28,16 +28,17 @@ function showButtons($scope, showArr) {
         $scope[showArr[n]] = true;
     }
 }
-var pushNoteAtAppropriate = function(notesData, s, parentType, pushObj) {
-    switch (parentType) {
-        case 'subject' :
-            notesData.notes.push(pushObj);
-            break;
-        case 'topic' :
-            notesData.topics[s[1]].notes.push(pushObj);
-            break;
-        case 'subtopic':
-            notesData.topics[s[1]].subtopics[s[2]].notes.push(pushObj);
-            break;
+;
+var showHide = function($scope, showArr, hideArr) {
+    for (var n = 0; n < showArr.length; n++) {
+        $scope[showArr[n]] = true;
     }
-}
+    for (var n = 0; n < hideArr.length; n++) {
+        $scope[hideArr[n]] = false;
+    }
+};
+var setEmpty = function($scope, setArr) {
+    for (var n = 0; n < setArr.length; n++) {
+        $scope[setArr[n]] = '';
+    }
+};

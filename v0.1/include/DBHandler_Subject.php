@@ -83,7 +83,7 @@ class DbHandlerSubject {
         $response = array('notes' => array(), 'topics' => array());
         $response['notes'] = $this->getSubjectNoteArray($subjectId);
         $topicArray = array();
-        $topics = $this->db->topic()->where('subject_ref', 15);
+        $topics = $this->db->topic()->where('subject_ref', $subjectId);
         foreach ($topics as $row) {
             $topic = $row;
             $imageDetail = $this->getImageName($topic['img_ref']);

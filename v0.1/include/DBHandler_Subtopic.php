@@ -10,6 +10,15 @@ class DbHandlerSubtopic {
         $this->db = $conn->connect();
     }
 
+    private function getImageName($img_id) {
+        $row = $this->db->image_refs->where('id', $img_id)->fetch();
+        if ($row) {
+            return $row['url'];
+        } else {
+            return FALSE;
+        }
+    }
+
     public function createSubtopic($subtopicText, $subject_ref, $topic_ref, $user_id, $img_ref) {
         $userPermission = $this->db->subject()
                         ->where('id = ? AND user_ref = ?', $subject_ref, $user_id)->fetch();
@@ -24,6 +33,7 @@ class DbHandlerSubtopic {
         $subtopic = array('text' => $subtopicText, 'topic_ref' => $topic_ref, 'img_ref' => $img_ref);
         $result = $this->db->subtopic->insert($subtopic);
         if ($result) {
+            $result['img_name'] = $this->getImageName($result['img_ref']);
             return array('status' => 200, 'message' => $result);
         } else {
             return array('status' => 500, 'message' => 'Database error.');
@@ -48,6 +58,7 @@ class DbHandlerSubtopic {
             $subtopic = array('text' => $subtopicText, 'topic_ref' => $topic_ref, 'img_ref' => $img_ref);
             $subtopicRow->update($subtopic);
             $editedRow = $this->db->subtopic()->where('id', $subtopic_id)->fetch();
+            $editedRow['img_name'] = $this->getImageName($editedRow['img_ref']);
             return array('status' => 200, 'message' => $editedRow);
         } else {
             return array('status' => 400, 'message' => "Subtopic id: $subtopic_id does not exist or else you may not have permission");

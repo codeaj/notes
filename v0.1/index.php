@@ -79,10 +79,6 @@ $app->post('/uploadFile', 'authenticate', function() use ($db_note) {
     global $user_id;
     addImage($db_note, $user_id);
 });
-$app->put('/uploadFile/:subject_id/:image_id', 'authenticate', function($subject_id, $image_id) use ($db_note) {
-    global $user_id;
-    updateImage($db_note, $subject_id, $user_id, $image_id);
-});
 $app->get('/testcall', function() use ($db_note) {
 
     /* code to create json file.
@@ -184,17 +180,12 @@ function updateNote($app, $db_note, $util, $subject_ref, $note_id, $user_id) {
 }
 
 function deleteNote($db_note, $subject_ref, $parent_id, $note_id, $user_id) {
-    $res = $db_note->deleteTopic($subject_ref, $parent_id, $note_id, $user_id);
+    $res = $db_note->deleteNote($subject_ref, $parent_id, $note_id, $user_id);
     echoRespnse($res['status'], $res);
 }
 
 function addImage($db_note, $user_id) {
     $res = $db_note->addImage($user_id);
-    echoRespnse($res['status'], $res);
-}
-
-function updateImage($db_note, $subject_id, $user_id, $image_id) {
-    $res = $db_note->updateImage($subject_id, $user_id, $image_id);
     echoRespnse($res['status'], $res);
 }
 
