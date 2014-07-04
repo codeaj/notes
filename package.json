@@ -1,0 +1,32 @@
+{
+  "name": "notes",
+  "version": "0.0.0",
+  "description": "A note taking app",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codeaj/notes.git"
+  },
+  "keywords": [
+    "web",
+    "notes"
+  ],
+  "author": "Ajay More",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codeaj/notes/issues"
+  },
+  "homepage": "https://github.com/codeaj/notes",
+  "devDependencies": {
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-htmlrefs": "~0.5.0",
+    "grunt-remove-logging": "~0.2.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-uglify": "~0.5.0",
+    "grunt": "~0.4.5"
+  }
+}

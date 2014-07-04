@@ -304,14 +304,14 @@ var NoteController = ['$scope', '$http', '$timeout', '$upload', 'WebServiceHandl
         });
         $(document).ready(function() {
             $(document).swipe({
-                swipeLeft: function(event, direction, distance, duration, fingerCount) {
+                swipeRight: function(event, direction, distance, duration, fingerCount) {
                     if ($scope.breadCrumbIndex === 0)
                         return;
                     $scope.$apply(function() {
                         $scope.moveBack($scope.breadCrumbIndex - 1);
                     });
                 },
-                swipeRight: function(event, direction, distance, duration, fingerCount) {
+                swipeLeft: function(event, direction, distance, duration, fingerCount) {
                     if ($('.selected').length === 0 || $scope.showCreateEdit)
                         return;
                     $scope.$apply(function() {
