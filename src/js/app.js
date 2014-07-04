@@ -80,7 +80,7 @@ myApp.factory('WebServiceHandler', function($q, $http) {
 
 var NoteController = ['$scope', '$http', '$timeout', '$upload', 'WebServiceHandler', 'Data',
     '$location', function($scope, $http, $timeout, $upload, WebServiceHandler, Data, $location) {
-
+        $http.defaults.headers.common.Authorization = sessionStorage['sessionVar'];
         $scope.atHome = true;
         $scope.showSubjects = true;
         $scope.breadCrumbIndex = 0;
@@ -98,6 +98,12 @@ var NoteController = ['$scope', '$http', '$timeout', '$upload', 'WebServiceHandl
         }, function(failureReason) {
             alert(failureReason.data.message);
         });
+
+        $scope.logout = function() {
+            $.post("logout.php", function(data) {
+                window.location = "../login.php";
+            });
+        };
 
         $scope.showImage = function(imgName) {
             console.log(imgName);

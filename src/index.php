@@ -1,10 +1,21 @@
+<?php
+session_start();
+if (!isset($_SESSION['sessionVar'])) {
+    $_SESSION = array();
+    session_destroy();
+    header("Location: ../login.php");
+    echo "Logging Out";
+}
+?>
 <!DOCTYPE html>
 <html ng-app="myApp">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link type="text/css" rel="stylesheet" href="css/style.css">
         <link type="text/css" rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+        <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>-->
+        <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
         <title>Notes App</title>
         <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
         <script src="lib/jquery-1.11.0.min.js"></script>
@@ -13,7 +24,9 @@
         <script src="lib/angular/angular-route.min.js"></script>
         <script src="lib/angular/angular-animate.min.js"></script>
         <script src="lib/angular/angular-file-upload.js"></script>
+        <!-- ref:js js/<%= appName %>.app.min.js -->
         <script src="js/app.js"></script>
+        <!-- endref -->
         <script src="lib/jquery.touchSwipe.min.js"></script>
     </head>
 

@@ -1,5 +1,6 @@
 body {
     font-family: 'Open Sans', Helvetica, arial, freesans, clean, sans-serif;	
+    font-family: 'Lato', Helvetica, arial, freesans, clean, sans-serif;	
     color: #666;
 }
 .create-edit-form.ng-hide-remove{
@@ -89,11 +90,11 @@ body{
 .add-area{
     position: absolute;
     font-size: 16px;
-    left: 0;
+    left: -1px;
     color: #3af781;
     text-shadow: none;
     border: 1px solid #3af781;
-    margin-top: 36px;
+    top: 35px;
     background: #fff;
     width: 108px;
     padding: 8px 8px 0 8px !important;
@@ -105,7 +106,7 @@ body{
         border-bottom-color: #3af781;
         position: absolute;
         top: -20px;
-        left: 6%;
+        left: 6.5%;
     }
     &::after{ 
         content: '';
@@ -146,13 +147,14 @@ body{
     border: 1px solid #33B5E5;
     padding: 4px;
     box-sizing: border-box;
+    margin-bottom: 5px;
 }
 .form-save-area{
     text-align: center;
     padding : 8px 0;
     button{
         width: 140px;
-        margin: 0 5px;
+        margin: 5px;
     }
 }
 .subject-list{
@@ -163,7 +165,7 @@ body{
     background: #f0f0f0;
 }
 .delete-form,.please-wait,.img-container{
-    padding: 120px;
+    padding-top: 120px;
     background: rgba(0,0,0,0.6);
     position: absolute;
     width: 100%;
@@ -190,7 +192,7 @@ body{
 }
 .deleteArea,.please-wait-area{
     background: #fff;
-    width: 360px;
+    width: 300px;
     margin-top: 80px;
     margin: 0 auto;
     text-align: center;
@@ -223,10 +225,10 @@ body{
         content: ''; 
         position: absolute;
         height: 100%;
-        width: 3px;
+        width: 2px;
         border-left: 1px solid #ffaa9f;
-        border-right: 1px solid #ffaa9f;
-        left: 68px;
+        border-right: 2px solid #ffaa9f;
+        left: 2px;
     }
 }
 .subject-topics{
@@ -236,16 +238,15 @@ body{
 }
 .subject-list,.subject-notes,.subject-topics,.topic-notes,.subtopic-notes{
     color: #555;
-    padding: 0 !important;
+    padding: 5px !important;
     position : relative;
-    margin-left: 58px;
     p{
         list-style: none;
         border-bottom: 1px solid #E8E5DF;
         height: auto;
         padding: 8px 0 2px 28px;
         margin: 0;
-        margin-left: 0px;
+        margin-left: 3px;
         position: relative;
         line-height: 1.3em;
         &:hover{
@@ -323,5 +324,19 @@ button{
     padding: .5em 1em;
     &:hover{
         background-image: linear-gradient(transparent,rgba(0,0,0,.05) 40%,rgba(0,0,0,.1));
+    }
+}
+@media all and (min-width: 800px){
+    .subjects-container, .topic-container, .subtopic-container, .note-container {
+        padding: 0 50px;
+    }
+    .subjects-container::before, .topic-container::before, .subtopic-container::before, .note-container::before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 2px;
+        border-left: 1px solid #ffaa9f;
+        border-right: 2px solid #ffaa9f;
+        left: 50px;
     }
 }
